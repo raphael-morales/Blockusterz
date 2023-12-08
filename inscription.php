@@ -1,5 +1,5 @@
 <?php
-
+include '_header.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $username = $_POST['username'];
@@ -46,8 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 </head>
 
 <body>
-
-    <?php include('_header.php'); ?>
 
     <div class="container">
         <h2>Registration</h2>

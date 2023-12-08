@@ -1,6 +1,14 @@
 <?php
 include '_header.php';
 
+try {
+    $request = $db->prepare("SELECT * FROM `category`");
+    $request->execute();
+    $category = $request->fetchAll();
+
+}catch (Exception $e){
+    var_dump($e->getMessage());
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_movie'])) {
     $movie_id_to_delete = $_POST['movie_id_to_delete'];
@@ -33,10 +41,21 @@ try {
     $msgError = "Une erreur est survenue !";
 }
 
-include '_footer.php';
+
 ?>
 
 <h1 style="text-align: center">Movies list</h1>
+<?php
+echo '<div style="display: flex; justify-content: space-evenly; margin-top: 5px">';
+echo '<button type="button" class="btn btn-success"><a href="/list.php" style="text-decoration: none; color: white">Tout les films</a></button>';
+
+foreach ($category as $item) {
+    echo '<button type="button" class="btn btn-info"><a href="/list.php?category='.$item['category_name'].'" style="text-decoration: none; color: white">'.$item['category_name'].'</a></button>';
+}
+echo '</div>';
+
+
+?>
 <div style="display: flex; justify-content: space-around; width: 80%; margin:auto; flex-wrap: wrap">
     <?php foreach ($PlateformeFilms as $movie) : ?>
         <a href='detail.php?movie=<?php echo $movie["movie_title"]; ?>'>
@@ -49,6 +68,7 @@ include '_footer.php';
         </a>
     <?php endforeach; ?>
 </div>
+
 
 <div style="position: fixed; bottom: 10px; right: 10px;">
     <form method="post">
@@ -63,4 +83,8 @@ include '_footer.php';
         </button>
     </form>
 </div>
+
+<?php
+include '_footer.php';
+?>
 

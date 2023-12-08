@@ -17,6 +17,7 @@ try {
 
     var_dump($e->getMessage());
 }
+try {
 
 $msgSuccess = "";
 $msgError = "";
@@ -59,5 +60,3 @@ $msgError = "";
                 </div>
         </nav>
     </header>
-
-

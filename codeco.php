@@ -1,7 +1,6 @@
 <?php
-include('_header.php')
-?>
-<?php
+include('_header.php');
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
@@ -9,10 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $password = $_POST['password'];
 
 
-    if ($conn->connect_error) {
-        die("La connexion à la base de données a échoué : " . $conn->connect_error);
-
-    }
+//    if ($db->connect_error) {
+//        die("La connexion à la base de données a échoué : " . $db->connect_error);
+//
+//    }
 
 
     $sql = "SELECT user_username, user_pswrd FROM utilisateurs WHERE user_username = '$username'";

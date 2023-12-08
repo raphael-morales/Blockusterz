@@ -55,6 +55,7 @@ include '_footer.php';
         background-repeat: no-repeat;
         height: 100vh;
         overflow: hidden;
-        color: yellow;
+        color: white;
+        backdrop-filter: brightness(40%);
     }
 </style>

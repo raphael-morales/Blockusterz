@@ -3,12 +3,20 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
+
     $_SESSION['user'] = [];
 }
 
-if (!isset($_SESSION['movie'])) {
-    $_SESSION['movie'] = [];
+try {
+
+    $db = new PDO("mysql:host=localhost;dbname=blockusterz;charset=utf8", 'root', 'Morales03071994', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+}catch (Exception $e) {
+    var_dump($e->getMessage());
 }
+
+$msgSuccess = "";
+$msgError = "";
 
 ?>
 

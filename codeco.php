@@ -8,20 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $db_host = '127.0.0.1';
-    $db_user = 'root';
-    $db_pass = '';
-    $db_name = 'blockusterz';
-
-    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
-
-    if ($conn->connect_error) {
-        die("La connexion à la base de données a échoué : " . $conn->connect_error);
+    if ($db->connect_error) {
+        die("La connexion à la base de données a échoué : " . $db->connect_error);
     }
 
 
     $sql = "SELECT user_username, user_pswrd FROM utilisateurs WHERE user_username = '$username'";
-    $result = $conn->query($sql);
+    $result = $db->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -39,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
     }
 
-    $conn->close();
 }
 
 

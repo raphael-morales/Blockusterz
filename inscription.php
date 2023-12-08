@@ -2,10 +2,10 @@
 
 $db_host = '127.0.0.1';
 $db_user = 'root';
-$db_pass = '';
+$db_pass = 'Morales03071994';
 $db_name = 'blockusterz';
 
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+$db = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $username = $_POST['username'];
@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $sql = "INSERT INTO utilisateurs (user_username, user_pswrd) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "')";
 
 
-    if ($conn->query($sql) === TRUE) {
+    if ($db->query($sql) === TRUE) {
         $success_message = "Enregistrement réussi. Vous pouvez maintenant vous connecter à votre compte.";
     } else {
-        $error_message = "Erreur lors de l'enregistrement : " . $conn->error;
+        $error_message = "Erreur lors de l'enregistrement : " . $db->error;
     }
 }
 ?>

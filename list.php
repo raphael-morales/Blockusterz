@@ -1,39 +1,66 @@
-<?php include '_header.php';
-//var_dump($_POST);
-//var_dump($_SESSION);
+<?php
+include '_header.php';
 
-if (isset($_GET["suppr"]) and $_GET["suppr"] === "true") {
-    $id = $_GET["id"];
-    unset($_SESSION["movie"][$id]);
-}  ?>
 
-<h1>Movies List</h1>
-
-<?php if (!isset($_GET["note"])) { ?>
-<a href="list.php?filtre=true">Movie Rating</a>
-<?php } else { ?>
-<a href="list.php?">All the Movies</a>
-<?php }
-
-if (empty($_SESSION["movie"])){
-    //$msg = $msgError;
-    $msgError = "Il n'y a aucun film enregistré.";
-}
-
-foreach($_SESSION['movie'] as $key => $value){
-    if((isset($_GET['filtre']) AND $_GET['filtre'] === 'true' AND isset($value["commentaire"])) OR !isset($_GET['filtre'])){
-        echo "<div class='card'>  
-        <div class='card-group'>
-            <div class='card'>    
-                <img src='...' class='card-img-top' alt='...'>    
-                <div class='card-body'>      
-                <h5 class='card-title'> Title  : {$_SESSION['movie'][$key]['movie-title']}</h5>      
-                <p class='card-text'> Release date  : {$_SESSION['movie'][$key]['release-date']}</p>      
-                <p class='card-text'> Category : {$_SESSION['movie'][$key]['category']}</p>
-                <p class='card-text'> Synopsis  : {$_SESSION['movie'][$key]['synopsis']}</p>
-                <p class='card-text'> Note  : {$_SESSION['movie'][$key]['note']}</p>
-                <a href='detail.php?id=$key' class='card-link'> Voir le détail </a>
-            </div>  
-        </div>";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_movie'])) {
+    $movie_id_to_delete = $_POST['movie_id_to_delete'];
+    try {
+        $delete_request = $db->prepare('DELETE FROM movie WHERE movie_id = :id');
+        $delete_request->bindParam(':id', $movie_id_to_delete);
+        $delete_request->execute();
+        echo 'Film supprimé avec succès.';
+    } catch (Exception $e) {
+        echo 'Erreur lors de la suppression du film : ' . $e->getMessage();
     }
 }
+
+try {
+    $request = $db->prepare('SELECT movie_id, movie_title FROM movie');
+    $request->execute();
+    $films = $request->fetchAll(PDO::FETCH_ASSOC);
+} catch (Exception $e) {
+    echo 'Erreur lors de la récupération de la liste des films : ' . $e->getMessage();
+}
+
+try {
+    $request = $db->prepare('SELECT * FROM movie');
+    $request->execute([]);
+    $PlateformeFilms = $request->fetchAll();
+
+    $msgSuccess = count($PlateformeFilms) . " film(s) trouvé(s) !";
+
+} catch (Exception $e){
+    $msgError = "Une erreur est survenue !";
+}
+
+include '_footer.php';
+?>
+
+<h1 style="text-align: center">Movies list</h1>
+<div style="display: flex; justify-content: space-around; width: 80%; margin:auto; flex-wrap: wrap">
+    <?php foreach ($PlateformeFilms as $movie) : ?>
+        <a href='data.php?id=<?php echo $movie["movie_id"]; ?>'>
+            <div style='background-size: cover;
+                        background-image: url(<?php echo $movie["movie_picture"]; ?>);
+                        margin-top: 10px;
+                        width: 300px;
+                        height: 450px;'>
+            </div>
+        </a>
+    <?php endforeach; ?>
+</div>
+
+<div style="position: fixed; bottom: 10px; right: 10px;">
+    <form method="post">
+        <label for="movie_to_delete">Select a film to delete :</label>
+        <select id="movie_to_delete" name="movie_id_to_delete">
+            <?php foreach ($films as $film) : ?>
+                <option value="<?php echo $film['movie_id']; ?>"><?php echo $film['movie_title']; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit" name="delete_movie">
+            <img src="img/icones/poubelle_icon.png" alt="Poubelle" style="width: 20px; height: 20px">
+        </button>
+    </form>
+</div>
+

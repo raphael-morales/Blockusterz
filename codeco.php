@@ -8,8 +8,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if ($db->connect_error) {
-        die("La connexion à la base de données a échoué : " . $db->connect_error);
+
+    if ($conn->connect_error) {
+        die("La connexion à la base de données a échoué : " . $conn->connect_error);
+
     }
 
 
@@ -36,40 +38,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
 
 //if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-   // $username = $_POST['username'];
-   // $password = $_POST['password'];
+// $username = $_POST['username'];
+// $password = $_POST['password'];
 
-   // $users = file('users.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+// $users = file('users.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-   // foreach ($users as $user) {
-     //   list($stored_username, $hashed_password) = explode(',', $user);
-    //
-      //  if ($username === $stored_username && password_verify($password, $hashed_password)) {
-       //     $_SESSION['user_id'] = 1;
-       //     header("Location: index.php");
-       //     exit;
-        //}
-    //}
+// foreach ($users as $user) {
+//   list($stored_username, $hashed_password) = explode(',', $user);
+//
+//  if ($username === $stored_username && password_verify($password, $hashed_password)) {
+//     $_SESSION['user_id'] = 1;
+//     header("Location: index.php");
+//     exit;
+//}
+//}
 //{
-  //  $error_message = "Username or password incorrect !";
+//  $error_message = "Username or password incorrect !";
 //}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Connexion</title>
     <style>
-    .container {
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 60vh;
-    }
+        }
 
         form {
             width: 300px;
@@ -81,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
     </style>
 </head>
+
 <body>
 
 
@@ -88,9 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         <h2>Connexion</h2>
 
         <?php
-            if (isset($error_message)) {
-                echo '<p class="error">' . $error_message . '</p>';
-            }
+        if (isset($error_message)) {
+            echo '<p class="error">' . $error_message . '</p>';
+        }
         ?>
 
         <form action="codeco.php" method="post">
@@ -104,13 +108,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         </form>
 
         <?php
-            if (isset($_SESSION['user_id'])) {
-                echo '<p>Logged in as\'user.</p>';
-                echo '<p><a href="index.php?logout=true">Disconnection/a></p>';
-            }
+        if (isset($_SESSION['user_id'])) {
+            echo '<p>Logged in as\'user.</p>';
+            echo '<p><a href="index.php?logout=true">Disconnection/a></p>';
+        }
         ?>
     </div>
-    <?php include ('_footer.php')?>
+    <?php include('_footer.php') ?>
 
 </body>
 <style>
@@ -125,5 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         height: 100vh;
         overflow: hidden;
     }
-    </style>
+</style>
+
 </html>

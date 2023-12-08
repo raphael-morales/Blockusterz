@@ -9,30 +9,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $password = $_POST['password'];
 
 
-    if ($conn->connect_error) {
-        die("La connexion à la base de données a échoué : " . $conn->connect_error);
-
-    }
-
-
-    $sql = "SELECT user_username, user_pswrd FROM utilisateurs WHERE user_username = '$username'";
-    $result = $db->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $stored_username = $row['user_username'];
-        $stored_password = $row['user_pswrd'];
+//    if ($db->connect_error) {
+//        die("La connexion à la base de données a échoué : " . $db->connect_error);
+//
+//    }
 
 
-        if (password_verify($password, $stored_password)) {
-            $_SESSION['username'] = $username;
+    $sql = $db->prepare("SELECT user_username, user_pswrd FROM utilisateurs WHERE user_username = ?");
+    $sql->execute([$username]);
+    $result= $sql->fetch();
+//    if ($result->num_rows > 0) {
+//        $row = $result->fetch_assoc();
+//        $stored_username = $row['user_username'];
+//        $stored_password = $row['user_pswrd'];
+
+
+        if (password_verify($password, $result['user_pswrd'])) {
+            $_SESSION['user'] = ['firstname'=>$username];
             header('Location: index.php');
 
             exit();
         } else {
             $error_message = "Identifiants invalides. Veuillez réessayer.";
         }
-    }
+//    }
 
 }
 

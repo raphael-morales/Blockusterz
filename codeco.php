@@ -11,11 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
     if ($conn->connect_error) {
         die("La connexion à la base de données a échoué : " . $conn->connect_error);
+
     }
 
 
     $sql = "SELECT user_username, user_pswrd FROM utilisateurs WHERE user_username = '$username'";
-    $result = $conn->query($sql);
+    $result = $db->query($sql);
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -33,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         }
     }
 
-    $conn->close();
 }
 
 

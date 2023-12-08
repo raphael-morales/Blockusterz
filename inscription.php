@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $sql = "INSERT INTO utilisateurs (user_username, user_pswrd) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "')";
 
 
-    if ($conn->query($sql) === TRUE) {
+    if ($db->query($sql) === TRUE) {
         $success_message = "Enregistrement réussi. Vous pouvez maintenant vous connecter à votre compte.";
     } else {
-        $error_message = "Erreur lors de l'enregistrement : " . $conn->error;
+        $error_message = "Erreur lors de l'enregistrement : " . $db->error;
     }
 }
 ?>

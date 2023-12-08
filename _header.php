@@ -22,6 +22,9 @@ try {
 $msgSuccess = "";
 $msgError = "";
 
+$msgSuccess = "";
+$msgError = "";
+
 ?>
 
 <!doctype html>

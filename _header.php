@@ -9,7 +9,12 @@ if (!isset($_SESSION['user'])) {
 if (!isset($_SESSION['movie'])) {
     $_SESSION['movie'] = [];
 }
+try {
 
+    $db = new PDO("mysql:host=localhost;dbname=blockusterz;charset=utf8", 'kaoutar', 'Password123!', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+} catch (Exception $e) {
+    var_dump($e->getMessage());
+}
 ?>
 
 <!doctype html>
@@ -48,5 +53,3 @@ if (!isset($_SESSION['movie'])) {
                 </div>
         </nav>
     </header>
-
-

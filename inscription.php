@@ -1,11 +1,5 @@
 <?php
 
-$db_host = '127.0.0.1';
-$db_user = 'root';
-$db_pass = '';
-$db_name = 'blockusterz';
-
-$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $username = $_POST['username'];
@@ -25,21 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <title>Registration</title>
     <style>
-    .container {
+        .container {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 60vh; 
-    }
+            height: 60vh;
+        }
+
         form {
-            width: 300px; 
+            width: 300px;
             margin: 20px;
             padding: 20px;
             border: 1px solid #ccc;
@@ -48,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         }
     </style>
 </head>
+
 <body>
 
     <?php include('_header.php'); ?>
@@ -56,13 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         <h2>Registration</h2>
 
         <?php
-            if (isset($error_message)) {
-                echo '<p class="error">' . $error_message . '</p>';
-            }
+        if (isset($error_message)) {
+            echo '<p class="error">' . $error_message . '</p>';
+        }
 
-            if (isset($success_message)) {
-                echo '<p class="success">' . $success_message . '</p>';
-            }
+        if (isset($success_message)) {
+            echo '<p class="success">' . $success_message . '</p>';
+        }
         ?>
 
         <form action="inscription.php" method="post">
@@ -92,4 +89,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         overflow: hidden;
     }
 </style>
+
 </html>

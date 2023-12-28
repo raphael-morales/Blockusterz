@@ -65,7 +65,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     }
 }
 
-
+var_dump($films[0]['movie_title']);
 
 ?>
 
@@ -91,7 +91,8 @@ echo '</div>';
 
     <?php if (isset($PlateformeFilms) && !empty($PlateformeFilms)) { ?>
         <?php foreach ($PlateformeFilms as $movie) : ?>
-            <a href='detail.php?movie=<?php echo $movie["movie_title"]; ?>'>
+
+            <a href="detail.php?movie=<?= $movie['movie_title'] ?>">
                 <div style='background-size: cover;
                             background-image: url(<?php echo $movie["movie_picture"]; ?>);
                             margin-top: 10px;

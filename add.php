@@ -39,7 +39,7 @@ if (
         $msgError = 'Veuillez remplir tous les champs';
     } else {
 
-
+        var_dump($_POST);
 
         try {
 
@@ -113,7 +113,7 @@ if (
     </div>
 
     <div class="form-group">
-        <label for="cat">Category</label>
+        <label for="category">Category</label>
         <select class="form-control" id="cat" name="cat">
 
             <?php foreach ($categories as $cat) {

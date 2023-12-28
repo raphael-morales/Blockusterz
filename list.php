@@ -28,8 +28,7 @@ try {
     $PlateformeFilms = $request->fetchAll();
 
     $msgSuccess = count($PlateformeFilms) . " film(s) trouvé(s) !";
-
-} catch (Exception $e){
+} catch (Exception $e) {
     $msgError = "Une erreur est survenue !";
 }
 
@@ -39,7 +38,7 @@ include '_footer.php';
 <h1 style="text-align: center">Movies list</h1>
 <div style="display: flex; justify-content: space-around; width: 80%; margin:auto; flex-wrap: wrap">
     <?php foreach ($PlateformeFilms as $movie) : ?>
-        <a href='data.php?id=<?php echo $movie["movie_id"]; ?>'>
+        <a href='detail.php?id=<?php echo $movie["movie_id"]; ?>'>
             <div style='background-size: cover;
                         background-image: url(<?php echo $movie["movie_picture"]; ?>);
                         margin-top: 10px;
@@ -63,4 +62,3 @@ include '_footer.php';
         </button>
     </form>
 </div>
-

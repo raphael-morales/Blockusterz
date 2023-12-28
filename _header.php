@@ -10,14 +10,17 @@ if (!isset($_SESSION['user'])) {
 
 try {
 
-    $db = new PDO('mysql:host=localhost;dbname=blockusterz;charset=utf8',
-        'root', '', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-
+    $db = new PDO(
+        'mysql:host=localhost;dbname=blockusterz;charset=utf8',
+        'kaoutar',
+        'Password123!',
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
 } catch (Exception $e) {
 
     var_dump($e->getMessage());
 }
-try {
+
 
 $msgSuccess = "";
 $msgError = "";

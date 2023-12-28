@@ -11,9 +11,8 @@ if (!isset($_SESSION['user'])) {
 try {
 
 
-    $db = new PDO("mysql:host=localhost;dbname=blockusterz;charset=utf8", 'root', 'Morales03071994', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-
-}catch (Exception $e) {
+    $db = new PDO("mysql:host=localhost;dbname=blockusterz;charset=utf8", 'kaoutar', 'Password123!', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+} catch (Exception $e) {
 
     var_dump($e->getMessage());
 }
@@ -51,7 +50,7 @@ $msgError = "";
                             <a class="nav-link" href="list.php">Movies List</a>
                             <a class="nav-link" href="add.php">Add movies</a>
                         </div>
-                        <?php if (isset($_SESSION['user']) AND !empty($_SESSION['user'])) { ?>
+                        <?php if (isset($_SESSION['user']) and !empty($_SESSION['user'])) { ?>
                             <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
                                 <a class="nav-link" href="index.php?logout=true">Logout</a>
                             </div>
@@ -59,7 +58,7 @@ $msgError = "";
                             <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
                                 <a class="nav-link" href="codeco.php">Login</a>
                                 <a class="nav-link" href="inscription.php">Sign Up</a>
-                                <?php } ?>
+                            <?php } ?>
                             </div>
 
                     </div>

@@ -5,8 +5,7 @@ try {
     $request = $db->prepare("SELECT * FROM `category`");
     $request->execute();
     $category = $request->fetchAll();
-
-}catch (Exception $e){
+} catch (Exception $e) {
     var_dump($e->getMessage());
 }
 
@@ -30,7 +29,7 @@ try {
     echo 'Erreur lors de la récupération de la liste des films : ' . $e->getMessage();
 }
 
-if (isset($_GET['category']) && !empty($_GET['category'])){
+if (isset($_GET['category']) && !empty($_GET['category'])) {
 
     try {
 
@@ -38,33 +37,30 @@ if (isset($_GET['category']) && !empty($_GET['category'])){
         $request->execute([$_GET['category']]);
         $PlateformeFilms = $request->fetchAll();
         $msgInfo = "Il y a " . count($PlateformeFilms) . " Films enregistrés dans cette categorie";
-
-    }catch (Exception $e){
+    } catch (Exception $e) {
         var_dump($e->getMessage());
     }
-
-}else{
+} else {
     try {
         $request = $db->prepare('SELECT * FROM movie');
         $request->execute([]);
         $PlateformeFilms = $request->fetchAll();
 
         $msgSuccess = count($PlateformeFilms) . " film(s) trouvé(s) !";
-
-    } catch (Exception $e){
+    } catch (Exception $e) {
         $msgError = "Une erreur est survenue !";
     }
 }
 
-if (isset($_GET['search']) && !empty($_GET['search'])){
+if (isset($_GET['search']) && !empty($_GET['search'])) {
 
     try {
-        $search = '%'.$_GET['search'].'%';
+        $search = '%' . $_GET['search'] . '%';
         $request = $db->prepare("SELECT * FROM `movie` WHERE movie_title LIKE ?");
         $request->execute([$search]);
         $PlateformeFilms = $request->fetchAll();
         $msgSuccess = "Il y a " . count($PlateformeFilms) . " Films enregistrés contenant le nom " . $_GET['search'];
-    }catch (Exception $e){
+    } catch (Exception $e) {
         var_dump($e->getMessage());
     }
 }
@@ -82,10 +78,10 @@ echo  ' <div class="container-fluid" style="margin: auto; width: 60%">
             </form>
           </div>';
 echo '<div style="display: flex; justify-content: space-evenly; margin-top: 5px">';
-echo '<button type="button" class="btn btn-success"><a href="/list.php" style="text-decoration: none; color: white">Tout les films</a></button>';
+echo '<button type="button" class="btn btn-success"><a href="list.php" style="text-decoration: none; color: white">Tout les films</a></button>';
 
 foreach ($category as $item) {
-    echo '<button type="button" class="btn btn-info"><a href="/list.php?category='.$item['category_name'].'" style="text-decoration: none; color: white">'.$item['category_name'].'</a></button>';
+    echo '<button type="button" class="btn btn-info"><a href="list.php?category=' . $item['category_name'] . '" style="text-decoration: none; color: white">' . $item['category_name'] . '</a></button>';
 }
 echo '</div>';
 
@@ -124,4 +120,3 @@ echo '</div>';
 <?php
 include '_footer.php';
 ?>
-

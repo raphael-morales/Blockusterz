@@ -1,9 +1,10 @@
 <?php
+ob_start();
 include '_header.php';
 
 
 if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
-    header('Location: signUp.php');
+    header('Location: inscription.php');
     exit();
 }
 try {
@@ -137,10 +138,10 @@ include '_footer.php';
         padding: 0;
         background-image: url('img/Fond/listefilm.jpg');
         background-size: cover;
+        overflow: hidden visible;
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
-        overflow: hidden;
         color: white;
         backdrop-filter: brightness(40%);
     }

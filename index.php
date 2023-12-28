@@ -1,7 +1,21 @@
 <?php
+ob_start();
+include '_header.php';
 
-include "_header.php";
+if (isset($_GET['logout']) and $_GET['logout'] == "true") {
+
+    $_SESSION = [];
+    session_destroy();
+    header('location: index.php');
+    exit();
+}
+
+if (isset($_GET['login']) and $_GET['login'] === "true") {
+    $msgSuccess = "Bienvenue " . $_SESSION['user']['firstname'] . " !";
+}
+
 ?>
+
 <style>
     body {
         font-family: Arial, sans-serif;

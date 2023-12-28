@@ -10,17 +10,11 @@ if (!isset($_SESSION['user'])) {
 
 try {
 
-    $db = new PDO(
-        'mysql:host=localhost;dbname=blockusterz;charset=utf8',
-        'kaoutar',
-        'Password123!',
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    $db = new PDO("mysql:host=localhost;dbname=blockusterz;charset=utf8", 'kaoutar', 'Password123!', [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 } catch (Exception $e) {
 
     var_dump($e->getMessage());
 }
-
 
 $msgSuccess = "";
 $msgError = "";
@@ -55,10 +49,17 @@ $msgError = "";
                             <a class="nav-link" href="list.php">Movies List</a>
                             <a class="nav-link" href="add.php">Add movies</a>
                         </div>
-                        <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
-                            <a class="nav-link" href="codeco.php">Login</a>
-                            <a class="nav-link" href="inscription.php">Sign Up</a>
-                        </div>
+                        <?php if (isset($_SESSION['user']) and !empty($_SESSION['user'])) { ?>
+                            <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
+                                <a class="nav-link" href="index.php?logout=true">Logout</a>
+                            </div>
+                        <?php } else { ?>
+                            <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
+                                <a class="nav-link" href="codeco.php">Login</a>
+                                <a class="nav-link" href="inscription.php">Sign Up</a>
+                            <?php } ?>
+                            </div>
+
                     </div>
                 </div>
         </nav>

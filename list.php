@@ -90,7 +90,8 @@ echo '</div>';
 <div style="display: flex; justify-content: space-around; width: 80%; margin:auto; flex-wrap: wrap">
     <?php if (isset($PlateformeFilms) && !empty($PlateformeFilms)) { ?>
         <?php foreach ($PlateformeFilms as $movie) : ?>
-            <a href='detail.php?movie=<?php echo addslashes($movie["movie_title"]); ?>'>
+
+            <a href="detail.php?movie=<?= $movie['movie_title'] ?>">
                 <div style='background-size: cover;
                             background-image: url(<?php echo $movie["movie_picture"]; ?>);
                             margin-top: 10px;

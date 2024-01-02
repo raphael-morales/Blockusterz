@@ -51,10 +51,17 @@ $msgError = "";
                             <a class="nav-link" href="list.php">Movies List</a>
                             <a class="nav-link" href="add.php">Add movies</a>
                         </div>
-                        <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
-                            <a class="nav-link" href="codeco.php">Login</a>
-                            <a class="nav-link" href="inscription.php">Sign Up</a>
-                        </div>
+                        <?php if (isset($_SESSION['user']) AND !empty($_SESSION['user'])) { ?>
+                            <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
+                                <a class="nav-link" href="index.php?logout=true">Logout</a>
+                            </div>
+                        <?php } else { ?>
+                            <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
+                                <a class="nav-link" href="codeco.php">Login</a>
+                                <a class="nav-link" href="inscription.php">Sign Up</a>
+                                <?php } ?>
+                            </div>
+
                     </div>
                 </div>
         </nav>

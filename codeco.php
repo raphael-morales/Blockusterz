@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include('_header.php');
 
 
@@ -14,27 +15,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 //    }
 
 
-    $sql = "SELECT user_username, user_pswrd FROM utilisateurs WHERE user_username = '$username'";
-    $result = $db->query($sql);
+    $sql = $db->prepare("SELECT user_username, user_pswrd FROM utilisateurs WHERE user_username = ?");
+    $sql->execute([$username]);
+    $result= $sql->fetch();
+//    if ($result->num_rows > 0) {
+//        $row = $result->fetch_assoc();
+//        $stored_username = $row['user_username'];
+//        $stored_password = $row['user_pswrd'];
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $stored_username = $row['user_username'];
-        $stored_password = $row['user_pswrd'];
 
-
-        if (password_verify($password, $stored_password)) {
-            $_SESSION['username'] = $username;
+        if (password_verify($password, $result['user_pswrd'])) {
+            $_SESSION['user'] = ['firstname'=>$username];
             header('Location: index.php');
 
             exit();
         } else {
             $error_message = "Identifiants invalides. Veuillez réessayer.";
         }
-    }
+//    }
 
 }
-
+//hello
 
 //if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 // $username = $_POST['username'];

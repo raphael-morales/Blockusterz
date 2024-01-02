@@ -1,18 +1,31 @@
 <?php
+ob_start();
 include '_header.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $user_data = $username . ',' . password_hash($password, PASSWORD_DEFAULT) . PHP_EOL;
-    $sql = "INSERT INTO utilisateurs (user_username, user_pswrd) VALUES ('$username', '" . password_hash($password, PASSWORD_DEFAULT) . "')";
+    $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    try {
+        $request = $db->prepare("INSERT INTO `utilisateurs` (user_pswrd, user_username) VALUE (?, ?)");
 
+        $request->execute([
+            $passwordHash,
+            $username,
+        ]);
 
-    if ($db->query($sql) === TRUE) {
-        $success_message = "Enregistrement réussi. Vous pouvez maintenant vous connecter à votre compte.";
-    } else {
-        $error_message = "Erreur lors de l'enregistrement : " . $db->error;
+        $_SESSION['user'] = [
+            'email' => $_POST['username']
+        ];
+        $msgSuccess = 'Vous avez bien été enregistré';
+//            echo '<script> location.replace("index.php?login=true"); </script>';
+        header('Location: index.php?login=true');
+//            $queryUser = "SELECT * FROM `user`";
+//            $query = sprintf("INSERT INTO `user` (user_firstname, user_email, user_password, user_date) VALUE ('%s', '%s', '%s')", $_POST['firstname'],$_POST['email'], password_hash($_POST['password'], PASSWORD_DEFAULT));
+//            $row = $db->Query($query);
+    }catch (Exception $e){
+        var_dump($e->getMessage());
     }
 }
 ?>

@@ -82,7 +82,7 @@ echo  ' <div class="container-fluid" style="margin: auto; width: 60%">
             </form>
           </div>';
 echo '<div style="display: flex; justify-content: space-evenly; margin-top: 5px">';
-echo '<button type="button" class="btn btn-success"><a href="/list.php" style="text-decoration: none; color: white">Tout les films</a></button>';
+echo '<button type="button" class="btn btn-success"><a href="/list.php" style="text-decoration: none; color: white">All movies</a></button>';
 
 foreach ($category as $item) {
     echo '<button type="button" class="btn btn-info"><a href="/list.php?category='.$item['category_name'].'" style="text-decoration: none; color: white">'.$item['category_name'].'</a></button>';

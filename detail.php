@@ -1,6 +1,8 @@
 <?php
 ob_start();
 include '_header.php';
+include 'img/icones/star.php';
+
 
 if (isset($_GET['delete']) && !empty($_GET['delete'])){
     try {
@@ -26,9 +28,30 @@ if (isset($_GET['movie']) && !empty($_GET['movie'])){
     }
 }
 
+if (!empty($movie['rate']) && !empty($_POST['rate'])){
+    $rate = ($movie['rate'] + $_POST['rate']) / 2;
+}else{
+    $rate = $movie['rate'];
+}
+
+if (isset($_POST['rate']) && !empty($_POST['rate'])){
+    $_SESSION['user'][$movie['movie_id']] = $_POST['rate'];
+
+    try {
+        $request = $db->prepare("UPDATE `movie` SET `rate`=? WHERE movie_id=?");
+        $request->execute([
+            $rate,
+            $movie['movie_id'],
+        ]);
+    }catch (Exception $e){
+        var_dump(($e->getMessage()));
+    }
+    header('location: detail.php?movie='.$movie["movie_title"]);
+}
+
 
 //echo '<pre>';
-//var_dump($movie);
+//var_dump($_SESSION);
 //echo '</pre>';
 
 if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
@@ -45,6 +68,11 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
                 <p class="card-text">'.$movie['movie_synopsis'].'</p>
                 <p class="card-text"><small class="text-body-secondary">Durée du film : '.$movie['movie_duration'].'</small></p>
                 <p class="card-text"><small class="text-body-secondary">Année de sortie du film : '.$movie['movie_date'].'</small></p>';
+    if ($movie['rate'] !== null){
+        echo '<div>
+                <p>note du film : '.round($rate, 1).' / 5</p>
+              </div>';
+    }
     if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
         echo '<div style="display: flex; justify-content: end; margin-bottom: 5px">
                         <button type="button" class="btn btn-primary" style="width: 10%; justify-content: end"><a href="/add.php?movie=' . $movie['movie_id'] . '&update=true" style="text-decoration: none; color: white">Modifier</a></button>
@@ -52,13 +80,19 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
                     <div style="display: flex; justify-content: end">
                         <button type="button" class="btn btn-danger" style="width: 10%; justify-content: end"><a href="/data.php?movie=' . $movie['movie_id'] . '&delete=' . $movie['movie_id'] . '" style="text-decoration: none; color: white">Supprimer</a></button>
                     </div>';
-        echo '<div class="rating">
-  <input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
-  <input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
-  <input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
-  <input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
-  <input type="radio" id="star1" name="rating" value="1"><label for="star1"></label>
-</div>';
+    }
+    if (isset($_SESSION['user']) && !empty($_SESSION['user']) && !isset($_SESSION['user'][$movie['movie_id']])){
+        echo '<form style="display: flex" method="post">';
+                for ($i = 1; $i <= 5; $i++ ){
+                    echo '<div style="display: flex; flex-direction: column; align-items: center">
+                            <label id="star'.$i.'" for="rate'.$i.'">'.$star.'</label>
+                            <input  style="display: none" type="radio" value="'.$i.'" id="rate'.$i.'" name="rate">
+                          </div>';
+                }
+                  echo '<div>
+                          <button type="submit" class="btn btn-success">Voter</button>
+                        </div>
+              </form>';
     }
     echo '<div style="display: flex; justify-content: end; height: 100%; align-items: end">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/'.$movie['movie_trailer'].'?si=YQoHVXAO1_PhLiRM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -71,6 +105,70 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
     header('location: list.php');
 }
 
+?>
 
+<script>
+    const rate1 = document.getElementById('rate1');
+    const star1 = document.getElementById('star1');
+    const rate2 = document.getElementById('rate2');
+    const star2 = document.getElementById('star2');
+    const rate3 = document.getElementById('rate3');
+    const star3 = document.getElementById('star3');
+    const rate4 = document.getElementById('rate4');
+    const star4 = document.getElementById('star4');
+    const rate5 = document.getElementById('rate5');
+    const star5 = document.getElementById('star5');
+
+    star1.addEventListener("click", () => {
+        star1.style.fill = 'red';
+        star2.style.fill = 'black';
+        star3.style.fill = 'black';
+        star4.style.fill = 'black';
+        star5.style.fill = 'black';
+
+    });
+
+    star2.addEventListener("click", () => {
+        // star1.style.fill = 'red';
+            star1.style.fill = 'red';
+            star2.style.fill = 'red';
+            star3.style.fill = 'black';
+            star4.style.fill = 'black';
+            star5.style.fill = 'black';
+
+    });
+
+    star3.addEventListener("click", () => {
+        // star1.style.fill = 'red';
+        star1.style.fill = 'red';
+        star2.style.fill = 'red';
+        star3.style.fill = 'red';
+        star4.style.fill = 'black';
+        star5.style.fill = 'black';
+
+    });
+
+    star4.addEventListener("click", () => {
+        // star1.style.fill = 'red';
+        star1.style.fill = 'red';
+        star2.style.fill = 'red';
+        star3.style.fill = 'red';
+        star4.style.fill = 'red';
+        star5.style.fill = 'black';
+
+    });
+
+    star5.addEventListener("click", () => {
+        // star1.style.fill = 'red';
+        star1.style.fill = 'red';
+        star2.style.fill = 'red';
+        star3.style.fill = 'red';
+        star4.style.fill = 'red';
+        star5.style.fill = 'red';
+
+    });
+</script>
+
+<?php
 include '_footer.php';
 ?>

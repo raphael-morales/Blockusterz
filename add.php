@@ -1,9 +1,10 @@
 <?php
+ob_start();
 include '_header.php';
 
 
 if (!isset($_SESSION['user']) || empty($_SESSION['user'])) {
-    header('Location: signUp.php');
+    header('Location: inscription.php');
     exit();
 }
 try {

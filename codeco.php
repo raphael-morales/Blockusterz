@@ -1,7 +1,7 @@
 <?php
-include('_header.php')
-?>
-<?php
+ob_start();
+include('_header.php');
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include '_header.php';
 
 if (isset($_GET['logout']) and $_GET['logout'] == "true") {

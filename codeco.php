@@ -8,53 +8,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-
-//    if ($db->connect_error) {
-//        die("La connexion à la base de données a échoué : " . $db->connect_error);
-//
-//    }
-
-
     $sql = $db->prepare("SELECT user_username, user_pswrd FROM utilisateurs WHERE user_username = ?");
     $sql->execute([$username]);
-    $result= $sql->fetch();
-//    if ($result->num_rows > 0) {
-//        $row = $result->fetch_assoc();
-//        $stored_username = $row['user_username'];
-//        $stored_password = $row['user_pswrd'];
+    $result = $sql->fetch();
 
 
-        if (password_verify($password, $result['user_pswrd'])) {
-            $_SESSION['user'] = ['firstname'=>$username];
-            header('Location: index.php');
+    if (password_verify($password, $result['user_pswrd'])) {
+        $_SESSION['user'] = ['firstname' => $username];
+        header('Location: index.php');
 
-            exit();
-        } else {
-            $error_message = "Identifiants invalides. Veuillez réessayer.";
-        }
-//    }
-
+        exit();
+    } else {
+        $error_message = "Identifiants invalides. Veuillez réessayer.";
+    }
 }
-//hello
 
-//if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-// $username = $_POST['username'];
-// $password = $_POST['password'];
-
-// $users = file('users.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-
-// foreach ($users as $user) {
-//   list($stored_username, $hashed_password) = explode(',', $user);
-//
-//  if ($username === $stored_username && password_verify($password, $hashed_password)) {
-//     $_SESSION['user_id'] = 1;
-//     header("Location: index.php");
-//     exit;
-//}
-//}
-//{
-//  $error_message = "Username or password incorrect !";
-//}
 ?>
 
 <!DOCTYPE html>

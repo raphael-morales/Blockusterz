@@ -52,6 +52,13 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
                     <div style="display: flex; justify-content: end">
                         <button type="button" class="btn btn-danger" style="width: 10%; justify-content: end"><a href="/data.php?movie=' . $movie['movie_id'] . '&delete=' . $movie['movie_id'] . '" style="text-decoration: none; color: white">Supprimer</a></button>
                     </div>';
+        echo '<div class="rating">
+  <input type="radio" id="star5" name="rating" value="5"><label for="star5"></label>
+  <input type="radio" id="star4" name="rating" value="4"><label for="star4"></label>
+  <input type="radio" id="star3" name="rating" value="3"><label for="star3"></label>
+  <input type="radio" id="star2" name="rating" value="2"><label for="star2"></label>
+  <input type="radio" id="star1" name="rating" value="1"><label for="star1"></label>
+</div>';
     }
     echo '<div style="display: flex; justify-content: end; height: 100%; align-items: end">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/'.$movie['movie_trailer'].'?si=YQoHVXAO1_PhLiRM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

@@ -3,7 +3,6 @@ ob_start();
 include '_header.php';
 include 'img/icones/star.php';
 
-
 if (isset($_GET['delete']) && !empty($_GET['delete'])){
     try {
 
@@ -28,14 +27,14 @@ if (isset($_GET['movie']) && !empty($_GET['movie'])){
     }
 }
 
-if (!empty($movie['rate']) && !empty($_POST['rate'])){
-    $rate = ($movie['rate'] + $_POST['rate']) / 2;
-}else{
-    $rate = $movie['rate'];
-}
-
 if (isset($_POST['rate']) && !empty($_POST['rate'])){
     $_SESSION['user'][$movie['movie_id']] = $_POST['rate'];
+
+    if ($movie['rate'] !== null){
+        $rate = ($movie['rate'] + $_POST['rate']) / 2;
+    }else{
+        $rate = $_POST['rate'];
+    }
 
     try {
         $request = $db->prepare("UPDATE `movie` SET `rate`=? WHERE movie_id=?");
@@ -48,7 +47,7 @@ if (isset($_POST['rate']) && !empty($_POST['rate'])){
     }
     header('location: detail.php?movie='.$movie["movie_title"]);
 }
-
+$rate = $movie['rate'];
 
 //echo '<pre>';
 //var_dump($_SESSION);
@@ -102,7 +101,7 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
           </div>
         </div>';
 }else{
-    header('location: list.php');
+//    header('location: list.php');
 }
 
 ?>

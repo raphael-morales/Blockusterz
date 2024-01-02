@@ -141,7 +141,7 @@ include '_footer.php';
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;
-        overflow: hidden;
+        overflow: hidden visible;
         color: white;
         backdrop-filter: brightness(40%);
     }

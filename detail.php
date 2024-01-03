@@ -65,7 +65,7 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)) {
                         <button type="button" class="btn btn-primary" style="width: 10%; justify-content: end"><a href="update.php?movie=' . $movie['movie_id'] . '&update=true" style="text-decoration: none; color: white">Modifier</a></button>
                     </div>
                     <div style="display: flex; justify-content: end">
-                        <button type="button" class="btn btn-danger" style="width: 10%; justify-content: end"><a href="data.php?movie=' . $movie['movie_id'] . '&delete=' . $movie['movie_id'] . '" style="text-decoration: none; color: white">Supprimer</a></button>
+                        <button type="button" class="btn btn-danger" style="width: 10%; justify-content: end"><a href="detail.php?movie=' . $movie['movie_id'] . '&delete=' . $movie['movie_id'] . '" style="text-decoration: none; color: white">Supprimer</a></button>
                     </div>';
     }
     if (isset($_SESSION['user']) && !empty($_SESSION['user']) && !isset($_SESSION['user'][$movie['movie_id']])){

@@ -88,6 +88,7 @@ echo '</div>';
 
 ?>
 <div style="display: flex; justify-content: space-around; width: 80%; margin:auto; flex-wrap: wrap">
+
     <?php if (isset($PlateformeFilms) && !empty($PlateformeFilms)) { ?>
         <?php foreach ($PlateformeFilms as $movie) : ?>
 
@@ -101,6 +102,7 @@ echo '</div>';
             </a>
         <?php endforeach; ?>
     <?php } ?>
+
 </div>
 
 
@@ -116,6 +118,7 @@ echo '</div>';
             <img src="img/icones/poubelle_icon.png" alt="Poubelle" style="width: 20px; height: 20px">
         </button>
     </form>
+
 </div>
 
 <?php

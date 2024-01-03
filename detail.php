@@ -3,28 +3,25 @@ ob_start();
 include '_header.php';
 include 'img/icones/star.php';
 
-if (isset($_GET['delete']) && !empty($_GET['delete'])){
-    try {
+if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+  try {
 
-        $request = $db->prepare("DELETE FROM `movie` WHERE movie_id=?");
-        $request->execute([$_GET['delete']]);
-
-    }catch (Exception $e){
-        var_dump($e->getMessage());
-    }
+    $request = $db->prepare("DELETE FROM `movie` WHERE movie_id=?");
+    $request->execute([$_GET['delete']]);
+  } catch (Exception $e) {
+    var_dump($e->getMessage());
+  }
 }
 
-if (isset($_GET['movie']) && !empty($_GET['movie'])){
-    try {
+if (isset($_GET['movie']) && !empty($_GET['movie'])) {
+  try {
 
-        $request = $db->prepare("SELECT * FROM `movie` WHERE movie_title=?");
-        $request->execute([$_GET['movie']]);
-        $movie = $request->fetch();
-
-
-    }catch (Exception $e){
-        var_dump($e->getMessage());
-    }
+    $request = $db->prepare("SELECT * FROM `movie` WHERE movie_title=?");
+    $request->execute([$_GET['movie']]);
+    $movie = $request->fetch();
+  } catch (Exception $e) {
+    var_dump($e->getMessage());
+  }
 }
 
 if (isset($_POST['rate']) && !empty($_POST['rate'])){
@@ -49,35 +46,26 @@ if (isset($_POST['rate']) && !empty($_POST['rate'])){
 }
 $rate = $movie['rate'];
 
-//echo '<pre>';
-//var_dump($_SESSION);
-//echo '</pre>';
-
-if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
-    echo '<div class="card mb-3">
+if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)) {
+  echo '<div class="card mb-3">
           <div class="row g-0">
             <div class="col-md-4">
-              <img style="max-height: 819px" src="'.$movie["movie_picture"].'" class="card-img-top" alt="affiche du film '.$movie['movie_title'].'">
+              <img style="max-height: 819px" src="' . $movie["movie_picture"] . '" class="card-img-top" alt="affiche du film ' . $movie['movie_title'] . '">
             </div>
             <div class="col-md-8" style="display: flex">
               <div class="card-body" style="display: flex; flex-direction: column">
-                <h5 class="card-title">'.$movie['movie_title'].'</h5>
-                <p class="card-text">Réalisateur : '.$movie['movie_real'].'</p>
-                <p class="card-text">Catégorie : '.$movie['movie_category'].'</p>
-                <p class="card-text">'.$movie['movie_synopsis'].'</p>
-                <p class="card-text"><small class="text-body-secondary">Durée du film : '.$movie['movie_duration'].'</small></p>
-                <p class="card-text"><small class="text-body-secondary">Année de sortie du film : '.$movie['movie_date'].'</small></p>';
-    if ($movie['rate'] !== null){
-        echo '<div>
-                <p>note du film : '.round($rate, 1).' / 5</p>
-              </div>';
-    }
-    if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
-        echo '<div style="display: flex; justify-content: end; margin-bottom: 5px">
-                        <button type="button" class="btn btn-primary" style="width: 10%; justify-content: end"><a href="/add.php?movie=' . $movie['movie_id'] . '&update=true" style="text-decoration: none; color: white">Modifier</a></button>
+                <h5 class="card-title">' . $movie['movie_title'] . '</h5>
+                <p class="card-text">Réalisateur : ' . $movie['movie_real'] . '</p>
+                <p class="card-text">Catégorie : ' . $movie['movie_category'] . '</p>
+                <p class="card-text">' . $movie['movie_synopsis'] . '</p>
+                <p class="card-text"><small class="text-body-secondary">Durée du film : ' . $movie['movie_duration'] . '</small></p>
+                <p class="card-text"><small class="text-body-secondary">Année de sortie du film : ' . $movie['movie_date'] . '</small></p>';
+  if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+    echo '<div style="display: flex; justify-content: end; margin-bottom: 5px">
+                        <button type="button" class="btn btn-primary" style="width: 10%; justify-content: end"><a href="update.php?movie=' . $movie['movie_id'] . '&update=true" style="text-decoration: none; color: white">Modifier</a></button>
                     </div>
                     <div style="display: flex; justify-content: end">
-                        <button type="button" class="btn btn-danger" style="width: 10%; justify-content: end"><a href="/data.php?movie=' . $movie['movie_id'] . '&delete=' . $movie['movie_id'] . '" style="text-decoration: none; color: white">Supprimer</a></button>
+                        <button type="button" class="btn btn-danger" style="width: 10%; justify-content: end"><a href="data.php?movie=' . $movie['movie_id'] . '&delete=' . $movie['movie_id'] . '" style="text-decoration: none; color: white">Supprimer</a></button>
                     </div>';
     }
     if (isset($_SESSION['user']) && !empty($_SESSION['user']) && !isset($_SESSION['user'][$movie['movie_id']])){
@@ -101,7 +89,7 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
           </div>
         </div>';
 }else{
-//    header('location: list.php');
+    header('location: list.php');
 }
 
 ?>
@@ -170,4 +158,3 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
 
 <?php
 include '_footer.php';
-?>

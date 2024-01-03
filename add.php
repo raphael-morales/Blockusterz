@@ -40,7 +40,7 @@ if (
         $msgError = 'Veuillez remplir tous les champs';
     } else {
 
-
+        var_dump($_POST);
 
         try {
 
@@ -114,7 +114,7 @@ if (
     </div>
 
     <div class="form-group">
-        <label for="cat">Category</label>
+        <label for="category">Category</label>
         <select class="form-control" id="cat" name="cat">
 
             <?php foreach ($categories as $cat) {
@@ -138,6 +138,7 @@ include '_footer.php';
         padding: 0;
         background-image: url('img/Fond/listefilm.jpg');
         background-size: cover;
+        overflow: hidden visible;
         background-position: center;
         background-repeat: no-repeat;
         height: 100vh;

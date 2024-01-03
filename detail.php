@@ -101,7 +101,7 @@ if (isset($_GET['movie']) && !empty($_GET['movie']) && !empty($movie)){
           </div>
         </div>';
 }else{
-//    header('location: list.php');
+    header('location: list.php');
 }
 
 ?>

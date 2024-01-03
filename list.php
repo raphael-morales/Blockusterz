@@ -65,8 +65,6 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     }
 }
 
-var_dump($films[0]['movie_title']);
-
 ?>
 
 <h1 style="text-align: center">Movies list</h1>

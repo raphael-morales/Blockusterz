@@ -47,8 +47,9 @@ $msgError = "";
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav" style="width: 100%">
                         <div style="display: flex; font-weight: bold; width: -webkit-fill-available;">
-                            <a class="nav-link" href="list.php">Movies List</a>
+                            <a class="nav-link" href="list.php">Movies List add by users</a>
                             <a class="nav-link" href="add.php">Add movies</a>
+                            <a class="nav-link" href="listMovies.php">all the movies</a>
                         </div>
                         <?php if (isset($_SESSION['user']) and !empty($_SESSION['user'])) { ?>
                             <div style="display: flex; width: 100%; justify-content: end; font-weight: bold;">
